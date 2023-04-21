@@ -3,7 +3,8 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const dotenv = require('dotenv').config();
-const userRoute = require('./routes/userRoute')
+const userRoute = require('./routes/userRoute');
+const errorHandler = require('./middleWare/errorMiddleware');
 
 const app = express(); 
 // Midllewares
@@ -18,6 +19,8 @@ app.use('/api/users', userRoute)
 app.get('/',(req,res)=>{
     res.send('Homepage');
 });
+//Error handler
+app.use(errorHandler)
 
 // Connect to DB and start server
 const PORT = process.env.PORT||5000
