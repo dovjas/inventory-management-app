@@ -3,12 +3,16 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const dotenv = require('dotenv').config();
+const userRoute = require('./routes/userRoute')
 
 const app = express(); 
 // Midllewares
 app.use(bodyParser.json());
 app.use(express.json());
 app.use(express.urlencoded({extended:false}));
+
+//Midlleware routes
+app.use('/api/users', userRoute)
 
 // Routes
 app.get('/',(req,res)=>{
