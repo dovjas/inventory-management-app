@@ -39,6 +39,7 @@ const userSchema = mongoose.Schema({
 },{
     timestamps:true,
 })
+
 //Ecnrypt password before saving to DB
 userSchema.pre('save',async function(next){
     if(!this.isModified('password')){

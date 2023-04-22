@@ -1,5 +1,10 @@
 const User = require("../models/userModel");
 const asyncHandler = require('express-async-handler');
+const jwt = require('jsonwebtoken')
+
+const generateToken = (id)=>{
+    return jwt.sign({id},process.env.JWT_SECRET,{expiresIn:'1d'})
+}
 
 const userRegister = asyncHandler(
     async(req,res)=>{
@@ -28,17 +33,24 @@ const userRegister = asyncHandler(
         email,
         password,
     })
+    //Generate Token
+    const token = generateToken(user._id);
+    
     if(user){
         const {_id, name, email, password, phone, bio} = user
         res.status(201).json({
-            _id, name, email, password, phone, bio
+            _id, 
+            name, 
+            email, 
+            password, 
+            phone, 
+            bio,
+            token
         })  
     }else {
         res.status(400);
         throw new Error("Invalid user data");
     }});
-
-
 
 module.exports= {
    userRegister,
