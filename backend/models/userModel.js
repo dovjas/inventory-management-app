@@ -52,7 +52,5 @@ this.password = hashedPassword;
 next();
 })
 //Encrypy password before saving to DB
-
-
 const User = mongoose.model('User',userSchema);
 module.exports = User;
